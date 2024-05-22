@@ -2,10 +2,7 @@ package org.example;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,8 +12,8 @@ public class DatabaseQueryService {
         List<LongestProjectDto> result = new ArrayList<>();
         String request = getRequest("SqL_File/find_longest_project.sql");
 
-        try (Connection connection = Database.getConnection();
-             Statement statement = connection.createStatement()) {
+        try (Connection connection = Database.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(request);
                 ResultSet resultSet = statement.executeQuery(request);
                 while (resultSet.next()) {
                     result.add(new LongestProjectDto(
@@ -45,8 +42,8 @@ public class DatabaseQueryService {
         List<MaxProjectsClientDto> result = new ArrayList<>();
         String request = getRequest("SqL_File/find_max_projects_client.sql");
 
-            try (Connection connection = Database.getConnection();
-                    Statement statement = connection.createStatement()) {
+        try (Connection connection = Database.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(request);
                 ResultSet resultSet = statement.executeQuery(request);
                 while (resultSet.next()) {
                     result.add(new MaxProjectsClientDto(
@@ -62,8 +59,8 @@ public class DatabaseQueryService {
         List<MaxSalaryWorkerDto> result = new ArrayList<>();
         String request = getRequest("SqL_File/find_max_salary_worker.sql");
 
-        try (Connection connection = Database.getConnection();
-             Statement statement = connection.createStatement()) {
+        try (Connection connection = Database.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(request);
             ResultSet resultSet = statement.executeQuery(request);
             while (resultSet.next()) {
                 result.add(new MaxSalaryWorkerDto(
@@ -80,8 +77,8 @@ public class DatabaseQueryService {
         List<YoungestEldestWorkersDto> result = new ArrayList<>();
         String request = getRequest("SqL_File/find_youngest_eldest_workers.sql");
 
-        try (Connection connection = Database.getConnection();
-             Statement statement = connection.createStatement()) {
+        try (Connection connection = Database.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(request);
             ResultSet resultSet = statement.executeQuery(request);
             while (resultSet.next()) {
                 result.add(new YoungestEldestWorkersDto(
@@ -98,8 +95,8 @@ public class DatabaseQueryService {
         List<ProjectPricesDto> result = new ArrayList<>();
         String request = getRequest("SqL_File/print_project_prices.sql");
 
-        try (Connection connection = Database.getConnection();
-             Statement statement = connection.createStatement()) {
+        try (Connection connection = Database.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(request);
             ResultSet resultSet = statement.executeQuery(request);
             while (resultSet.next()) {
                 result.add(new ProjectPricesDto(

@@ -2,6 +2,7 @@ package org.example;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
@@ -18,8 +19,8 @@ public class DatabaseInitService {
             ex.printStackTrace();
         }
         Connection connection = Database.getConnection();
-        try(Statement statement = connection.createStatement()) {
-            statement.execute(createDataBase.toString());
+        try{
+            PreparedStatement statement = connection.prepareStatement(createDataBase.toString());
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw ex;
